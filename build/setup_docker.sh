@@ -3,6 +3,16 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# systemd drop-in for docker networking
+sudo mkdir -p /etc/docker
+sudo sh -c 'cat >/etc/docker/daemon.json <<EOF
+{
+	"bip": "172.18.0.1/16"
+}
+EOF'
+
+sudo cat /etc/docker/daemon.json
+
 # apt repo
 DISTRO="$(cat /etc/os-release | grep ^ID= | cut -d= -f2)"
 CODENAME="$(cat /etc/os-release | grep VERSION_CODENAME= | cut -d= -f2)"
