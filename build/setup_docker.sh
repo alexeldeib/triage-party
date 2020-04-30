@@ -11,8 +11,6 @@ sudo sh -c 'cat >/etc/docker/daemon.json <<EOF
 }
 EOF'
 
-sudo cat /etc/docker/daemon.json
-
 # apt repo
 DISTRO="$(cat /etc/os-release | grep ^ID= | cut -d= -f2)"
 CODENAME="$(cat /etc/os-release | grep VERSION_CODENAME= | cut -d= -f2)"
