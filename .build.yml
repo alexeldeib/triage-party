@@ -1,0 +1,19 @@
+image: debian/buster
+environment:
+  APP: triage-party
+  REPO: docker.io/alexeldeib
+packages:
+- curl
+- gpg
+- apt-transport-https
+repositories: null
+secrets:
+- 7bb48981-fc03-4344-bae3-736c99f94f49
+- 21bdadaa-095c-4968-9a6e-ce9b795042b4
+sources:
+- https://github.com/alexeldeib/triage-party
+tasks:
+- install: |
+    bash ~/triage-party/build/setup_docker.sh
+- build: |
+    bash ~/triage-party/build/build.sh
