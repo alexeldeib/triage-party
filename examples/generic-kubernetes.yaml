@@ -16,7 +16,7 @@ settings:
   name: generic
   min_similarity: 0.8
   repos:
-    - https://github.com/kubernetes/community
+    - https://github.com/kubernetes-sigs/controller-runtime
 
 collections:
   - id: daily
