@@ -17,7 +17,7 @@ FROM golang AS builder
 WORKDIR /app
 
 # CFG is the path to your Triage Party configuration
-ARG CFG
+ARG CFG=examples/generic-kubernetes.yaml
 
 # Build the binary
 ENV SRC_DIR=/src/tparty
@@ -32,14 +32,14 @@ RUN go build cmd/server/main.go
 
 # Populate disk cache data (optional)
 FROM alpine AS persist
-ARG CFG
+ARG CFG=examples/generic-kubernetes.yaml
 COPY pcache /pc
 RUN echo "failure is OK with this next step (cache population)"
 RUN mv /pc/$(basename $CFG).pc /config.yaml.pc || touch /config.yaml.pc
 
 # Setup the site data
 FROM gcr.io/distroless/base
-ARG CFG
+ARG CFG=examples/generic-kubernetes.yaml
 COPY --from=builder /src/tparty/main /app/
 COPY --from=persist /config.yaml.pc /app/pcache/config.yaml.pc
 COPY site /app/site/
